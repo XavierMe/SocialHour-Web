@@ -36,7 +36,7 @@ export default function Home() {
       .ilike("email", lowerEmail);
 
     if (existing && existing.length > 0) {
-      setMessage("Woah there bud... you’ve already signed up 🙂");
+      <p className="...">Woah there bud... you&rsquo;ve already signed up 🙂</p>
       return;
     }
 
