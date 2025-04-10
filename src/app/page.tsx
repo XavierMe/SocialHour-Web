@@ -181,7 +181,7 @@ export default function Home() {
 
                 {city === "Other" && (
                   <p className="text-sm text-red-500">
-                    Sorry, we're currently only accepting testers in Richmond and Hampton Roads.
+                    <p>Sorry, we&apos;re currently only accepting testers in Richmond and Hampton Roads.</p>
                   </p>
                 )}
 
@@ -230,7 +230,7 @@ export default function Home() {
 
                     {willingToHelp === "no" && (
                       <p className="text-sm text-red-500">
-                        <p>Thanks for your interest, but we&apos;re currently only accepting testers...</p>
+                        Thanks for your interest, but we&apos;re currently only accepting testers...
                       </p>
                     )}
 
