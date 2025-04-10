@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "../../lib/supabase"; 
+import { supabase } from "../../lib/supabase";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -23,10 +23,11 @@ export default function Home() {
     "Portsmouth",
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Email submitted:", email);
+    // console.log("Email submitted:", email);
     setSubmitted(true);
+    await supabase.from("notify_list").insert([{ email }]);
     setEmail("");
   };
 
@@ -42,11 +43,11 @@ export default function Home() {
       },
     ]);
 
-    if (error) {
-      console.error("Supabase insert error:", error.message);
-    } else {
-      console.log("Inserted:", data);
-    }
+    // if (error) {
+    //   console.error("Supabase insert error:", error.message);
+    // } else {
+    //   console.log("Inserted:", data);
+    // }
   };
 
   return (
@@ -177,9 +178,8 @@ export default function Home() {
 
                 {willingToHelp === "no" && (
                   <p className="text-sm text-red-500">
-                  {"Thanks for your interest, but we're currently only accepting testers who are excited to help improve the experience."}
-                </p>
-
+                    {"Thanks for your interest, but we're currently only accepting testers who are excited to help improve the experience."}
+                  </p>
                 )}
 
                 {willingToHelp === "yes" && (
