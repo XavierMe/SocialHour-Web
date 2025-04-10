@@ -7,6 +7,9 @@ export default function Home() {
   const [submitted, setSubmitted] = useState(false);
   const [city, setCity] = useState("");
   const [allowed, setAllowed] = useState(false);
+  const [showTesterForm, setShowTesterForm] = useState(false);
+  const [willingToHelp, setWillingToHelp] = useState<string | null>(null);
+  const [testerEmail, setTesterEmail] = useState("");
 
   const allowedCities = [
     "Richmond",
@@ -59,7 +62,7 @@ export default function Home() {
             />
             <button
               type="submit"
-              className="bg-gradient-to-r from-[#8b5cf6] to-[#ec4899] text-white px-6 py-2 rounded-md font-semibold hover:opacity-90 transition"
+              className="bg-purple-600 text-white px-6 py-2 rounded-md font-semibold hover:opacity-90 transition cursor-pointer"
             >
               Notify Me
             </button>
@@ -70,119 +73,125 @@ export default function Home() {
           No spam. Just good vibes. You can unsubscribe anytime.
         </p>
 
-        {/* Tester Signup Section */}
-        <div className="mt-12 border-t border-[#2a2a2a] pt-10 text-left space-y-6">
-          <h2 className="text-2xl font-bold text-white">Want to be a tester?</h2>
-          <p className="text-gray-300">
-            We’re currently accepting testers in{" "}
-            <span className="font-semibold text-white">Richmond</span> and the{" "}
-            <span className="font-semibold text-white">Hampton Roads</span> area.
-          </p>
+        {/* Tester Toggle Section */}
+        <div className="mt-12">
+          <button
+            onClick={() => setShowTesterForm(!showTesterForm)}
+            className="text-purple-400 font-semibold underline cursor-pointer"
+          >
+            {showTesterForm ? "Hide Tester Form" : "Want to be a tester?"}
+          </button>
+        </div>
 
-          {/* Styled Dropdown */}
-          <div className="space-y-3">
-            <label className="block text-sm font-medium mb-1 text-white">Which city are you in?</label>
-            <select
-              value={city}
-              onChange={(e) => {
-                const selectedCity = e.target.value;
-                setCity(selectedCity);
-                setAllowed(allowedCities.includes(selectedCity));
-              }}
-              className="w-full px-4 py-2 rounded-md bg-[#1e1e22] text-white border border-[#3a3a40] focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
-            >
-              <option value="">Select a city...</option>
-              {allowedCities.map((cityOption) => (
-                <option key={cityOption} value={cityOption}>
-                  {cityOption}
-                </option>
-              ))}
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          {/* Conditional Form */}
-          {allowed ? (
-            <form onSubmit={handleTesterSubmit} className="space-y-4 pt-2">
-              {/* Checkboxes */}
-              <div className="space-y-2">
-                <label className="block text-sm font-medium mb-1 text-white">Are you willing to...</label>
-                <label className="flex items-center gap-2 text-sm">
-                  <input type="checkbox" className="accent-purple-500" required />
-                  Give feedback regularly
-                </label>
-                <label className="flex items-center gap-2 text-sm">
-                  <input type="checkbox" className="accent-purple-500" required />
-                  Join our Discord for updates & discussions
-                </label>
-                <label className="flex items-center gap-2 text-sm">
-                  <input type="checkbox" className="accent-purple-500" required />
-                  Use the app in real-world social settings
-                </label>
-              </div>
-
-              {/* Honest feedback question */}
-              <div>
-                <label className="block text-sm font-medium mb-1 text-white">
-                  What kind of feedback would you give to help us grow?
-                </label>
-                <textarea
-                  placeholder="Be honest — what would make this app better, more fun, or more useful?"
-                  className="w-full h-28 px-4 py-2 rounded-md bg-[#1e1e22] text-white border border-[#3a3a40] placeholder-gray-400"
-                  required
-                />
-              </div>
-
-              {/* Device / experience */}
-              <div>
-                <label className="block text-sm font-medium mb-1 text-white">What phone do you use?</label>
-                <input
-                  type="text"
-                  placeholder="e.g. iPhone 15, Galaxy S22"
-                  className="w-full px-4 py-2 rounded-md bg-[#1e1e22] text-white border border-[#3a3a40] placeholder-gray-400"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-1 text-white">Have you ever beta tested an app before?</label>
+        {/* Tester Form */}
+        {showTesterForm && (
+          <div className="mt-8 border-t border-[#2a2a2a] pt-10 text-left space-y-6">
+            <h2 className="text-2xl font-bold text-white">
+              Apply to be a <span className="text-purple-400">tester</span>
+            </h2>
+            <div className="space-y-3">
+              <label className="block text-sm font-medium mb-1 text-white">Which city are you in?</label>
+              <div className="relative">
                 <select
-                  className="w-full px-4 py-2 rounded-md bg-[#1e1e22] text-white border border-[#3a3a40] focus:outline-none"
-                  required
+                  value={city}
+                  onChange={(e) => {
+                    const selectedCity = e.target.value;
+                    setCity(selectedCity);
+                    setAllowed(allowedCities.includes(selectedCity));
+                  }}
+                  className="w-full appearance-none bg-[#1e1e22] text-white border border-[#3a3a40] px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition text-sm pr-10"
                 >
-                  <option value="">Select...</option>
-                  <option value="yes">Yes</option>
-                  <option value="no">No</option>
+                  <option value="">Select a city...</option>
+                  {allowedCities.map((cityOption) => (
+                    <option key={cityOption} value={cityOption}>
+                      {cityOption}
+                    </option>
+                  ))}
+                  <option value="Other">Other</option>
                 </select>
               </div>
+            </div>
 
-              {/* Submit */}
-              <button
-                type="submit"
-                className="bg-gradient-to-r from-[#8b5cf6] to-[#ec4899] text-white px-6 py-2 rounded-md font-semibold hover:opacity-90 transition"
-              >
-                Apply to be a Tester
-              </button>
-
-              {/* Discord Link */}
-              <p className="text-sm text-gray-400 mt-4">
-                Already on Discord?{" "}
-                <a
-                  href="https://discord.gg/your-server" // Replace with real link
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-purple-400 underline hover:text-pink-400 transition"
-                >
-                  Join our tester Discord here
-                </a>
+            {city === "Other" && (
+              <p className="text-sm text-red-500">
+                Sorry, we're currently only accepting testers in Richmond and Hampton Roads.
               </p>
-            </form>
-          ) : city && (
-            <p className="text-sm text-red-500">
-              We’re not accepting testers in your area yet.
-            </p>
-          )}
-        </div>
+            )}
+
+            {allowed && (
+              <form onSubmit={handleTesterSubmit} className="space-y-6 pt-2">
+                <div>
+                  <label className="block text-sm font-medium mb-1 text-white">Your email</label>
+                  <input
+                    type="email"
+                    required
+                    placeholder="Email for tester invite"
+                    value={testerEmail}
+                    onChange={(e) => setTesterEmail(e.target.value)}
+                    className="w-full px-4 py-2 rounded-md text-white bg-[#1e1e22] border border-[#3a3a40] placeholder-gray-400"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium mb-1 text-white">
+                    Are you willing to help us improve the app?
+                  </label>
+                  <div className="flex gap-4">
+                    <label className="flex items-center gap-2 text-sm">
+                      <input
+                        type="radio"
+                        name="willingToHelp"
+                        value="yes"
+                        onChange={() => setWillingToHelp("yes")}
+                        className="accent-purple-500"
+                      />
+                      Yes
+                    </label>
+                    <label className="flex items-center gap-2 text-sm">
+                      <input
+                        type="radio"
+                        name="willingToHelp"
+                        value="no"
+                        onChange={() => setWillingToHelp("no")}
+                        className="accent-purple-500"
+                      />
+                      No
+                    </label>
+                  </div>
+                </div>
+
+                {willingToHelp === "no" && (
+                  <p className="text-sm text-red-500">
+                    Thanks for your interest, but we’re currently only accepting testers who are excited to help improve the experience.
+                  </p>
+                )}
+
+                {willingToHelp === "yes" && (
+                  <>
+                    <button
+                      type="submit"
+                      className="bg-purple-600 text-white px-6 py-2 rounded-md font-semibold hover:opacity-90 transition cursor-pointer"
+                    >
+                      Submit Application
+                    </button>
+
+                    <p className="text-sm text-gray-400 mt-4">
+                      Join our Discord! {" "}
+                      <a
+                        href="https://discord.gg/your-server"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-purple-400 underline hover:text-pink-400 transition"
+                      >
+                        Click here to connect
+                      </a>
+                    </p>
+                  </>
+                )}
+              </form>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
