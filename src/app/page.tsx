@@ -5,7 +5,6 @@ import { supabase } from "../../lib/supabase";
 
 export default function Home() {
   const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
   const [city, setCity] = useState("");
   const [allowed, setAllowed] = useState(false);
   const [showTesterForm, setShowTesterForm] = useState(false);
@@ -29,25 +28,26 @@ export default function Home() {
   const handleNotifySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const lowerEmail = email.toLowerCase();
-
+  
     const { data: existing } = await supabase
       .from("notify_list")
       .select("email")
       .ilike("email", lowerEmail);
-
+  
     if (existing && existing.length > 0) {
-      <p className="...">Woah there bud... you&rsquo;ve already signed up 🙂</p>
+      setMessage("Woah there bud... you’ve already signed up 🙂");
       return;
     }
-
+  
     const { error } = await supabase.from("notify_list").insert([{ email: lowerEmail }]);
-
+  
     if (!error) {
       setFormComplete(true);
     } else {
       setMessage("Something went wrong. Try again?");
     }
   };
+  
 
   const handleTesterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -181,7 +181,7 @@ export default function Home() {
 
                 {city === "Other" && (
                   <p className="text-sm text-red-500">
-                    <p>Sorry, we&apos;re currently only accepting testers in Richmond and Hampton Roads.</p>
+                    Sorry, we&apos;re currently only accepting testers in Richmond and Hampton Roads.
                   </p>
                 )}
 
