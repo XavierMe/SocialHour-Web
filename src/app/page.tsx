@@ -129,7 +129,7 @@ export default function Home() {
 
             {city === "Other" && (
               <p className="text-sm text-red-500">
-                Sorry, we're currently only accepting testers in Richmond and Hampton Roads.
+                {"Sorry, we're currently only accepting testers in Richmond and Hampton Roads."}
               </p>
             )}
 
