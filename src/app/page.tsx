@@ -177,8 +177,8 @@ export default function Home() {
 
                 {willingToHelp === "no" && (
                   <p className="text-sm text-red-500">
-                    {"Thanks for your interest, but we're currently only accepting testers who are excited to help improve the experience."}
-                  </p>
+                  {"Thanks for your interest, but we're currently only accepting testers who are excited to help improve the experience."}
+                </p>
 
                 )}
 
