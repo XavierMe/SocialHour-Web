@@ -115,8 +115,7 @@ export default function Home() {
                     setCity(selectedCity);
                     setAllowed(allowedCities.includes(selectedCity));
                   }}
-                  className="w-full appearance-none bg-[#1e1e22] text-white border border-[#3a3a40] px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition text-sm pr-10"
-                >
+                  className="w-full appearance-none bg-[#1e1e22] text-white border border-[#3a3a40] px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition text-sm pr-10 font-sans"                >
                   <option value="">Select a city...</option>
                   {allowedCities.map((cityOption) => (
                     <option key={cityOption} value={cityOption}>
