@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { supabase } from "../../lib/supabase"; // adjust the path if needed
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -29,9 +30,23 @@ export default function Home() {
     setEmail("");
   };
 
-  const handleTesterSubmit = (e: React.FormEvent) => {
+  const handleTesterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Tester form submitted");
+
+    const { data, error } = await supabase.from("testers").insert([
+      {
+        email: testerEmail,
+        city: city,
+        willing: willingToHelp === "yes",
+        feedback: "",
+      },
+    ]);
+
+    if (error) {
+      console.error("Supabase insert error:", error.message);
+    } else {
+      console.log("Inserted:", data);
+    }
   };
 
   return (
