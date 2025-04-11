@@ -202,7 +202,7 @@ export default function Home() {
 
                     <div className="space-y-2 pt-4">
                       <label className="block text-sm font-medium mb-1 text-white">
-                        Are you willing to help us improve the app?
+                        Are you willing to help us improve the app by testing it weekly, sharing constructive feedback, and helping shape future features?
                       </label>
                       <div className="flex gap-4">
                         <label className="flex items-center gap-2 text-sm">
